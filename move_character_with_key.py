@@ -7,6 +7,7 @@ FRAME_COUNT = 8
 running = True
 x, y = TUK_WIDTH / 2, TUK_HEIGHT / 2
 frame = 0
+pressed_keys = []
 background = None
 character = None
 
@@ -18,6 +19,17 @@ def handle_events():
             running = False
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
+        elif event.type == SDL_KEYDOWN and event.key in (SDLK_LEFT, SDLK_RIGHT):
+            if event.key not in pressed_keys:
+                pressed_keys.append(event.key)
+        elif event.type == SDL_KEYUP and event.key in pressed_keys:
+            pressed_keys.remove(event.key)
+
+
+def update_movement():
+    global x
+    dx = int(SDLK_RIGHT in pressed_keys) - int(SDLK_LEFT in pressed_keys)
+    x += dx * 5
 
 
 def draw_scene():
@@ -37,6 +49,7 @@ def main():
         handle_events()
         if not running:
             break
+        update_movement()
         draw_scene()
         frame = (frame + 1) % FRAME_COUNT
         delay(0.05)
