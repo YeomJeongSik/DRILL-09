@@ -1,29 +1,20 @@
 from pico2d import *
 
-
-open_canvas()
-grass = load_image('grass.png')
-character = load_image('animation_sheet.png')
-
-
-def handle_events():
-    global running
-
-    # fill here
-
-    events = get_events()
-    for event in events:
-        if event.type == SDL_QUIT:
-            running = False
-        # fill here
-
+TUK_WIDTH, TUK_HEIGHT = 1280, 1024
+FRAME_WIDTH = FRAME_HEIGHT = 100
+FRAME_COUNT = 8
 
 running = True
-x = 800 // 2
+x, y = TUK_WIDTH / 2, TUK_HEIGHT / 2
 frame = 0
+background = None
+character = None
 
-# fill here
+
+def main():
+    open_canvas(TUK_WIDTH, TUK_HEIGHT)
+    close_canvas()
 
 
-close_canvas()
-
+if __name__ == '__main__':
+    main()
