@@ -1,3 +1,4 @@
+from math import hypot
 from pico2d import *
 
 TUK_WIDTH, TUK_HEIGHT = 1280, 1024
@@ -29,8 +30,10 @@ def update_movement():
     global x, y
     dx = int(SDLK_RIGHT in pressed_keys) - int(SDLK_LEFT in pressed_keys)
     dy = int(SDLK_UP in pressed_keys) - int(SDLK_DOWN in pressed_keys)
-    x += dx * 5
-    y += dy * 5
+    length = hypot(dx, dy)
+    if length:
+        x += dx / length * 5
+        y += dy / length * 5
 
 
 def draw_scene():
