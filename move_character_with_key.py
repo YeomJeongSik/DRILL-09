@@ -31,7 +31,8 @@ def handle_events():
 
 
 def update_movement():
-    global x, y, facing, state
+    global x, y, facing, state, frame
+    previous_visual = (state, facing)
     dx = int(SDLK_RIGHT in pressed_keys) - int(SDLK_LEFT in pressed_keys)
     dy = int(SDLK_UP in pressed_keys) - int(SDLK_DOWN in pressed_keys)
     if dx:
@@ -41,6 +42,8 @@ def update_movement():
     if length:
         x += dx / length * 5
         y += dy / length * 5
+    if (state, facing) != previous_visual:
+        frame = 0
 
 
 def draw_scene():
