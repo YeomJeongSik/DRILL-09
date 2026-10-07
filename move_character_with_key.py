@@ -11,6 +11,15 @@ background = None
 character = None
 
 
+def handle_events():
+    global running
+    for event in get_events():
+        if event.type == SDL_QUIT:
+            running = False
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+            running = False
+
+
 def draw_scene():
     clear_canvas()
     background.draw(TUK_WIDTH / 2, TUK_HEIGHT / 2)
@@ -24,7 +33,10 @@ def main():
     open_canvas(TUK_WIDTH, TUK_HEIGHT)
     background = load_image('TUK_GROUND.png')
     character = load_image('animation_sheet.png')
-    for _ in range(16):
+    while running:
+        handle_events()
+        if not running:
+            break
         draw_scene()
         frame = (frame + 1) % FRAME_COUNT
         delay(0.05)
