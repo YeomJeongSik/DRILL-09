@@ -1,5 +1,8 @@
+from pathlib import Path
 from math import hypot
 from pico2d import *
+
+ASSET_DIR = Path(__file__).resolve().parent
 
 TUK_WIDTH, TUK_HEIGHT = 1280, 1024
 FRAME_WIDTH = FRAME_HEIGHT = 100
@@ -88,8 +91,8 @@ def main():
     global background, character
     open_canvas(TUK_WIDTH, TUK_HEIGHT)
     try:
-        background = load_image('TUK_GROUND.png')
-        character = load_image('animation_sheet.png')
+        background = load_image(str(ASSET_DIR / 'TUK_GROUND.png'))
+        character = load_image(str(ASSET_DIR / 'animation_sheet.png'))
         previous_time = get_time()
         while running:
             current_time = get_time()
