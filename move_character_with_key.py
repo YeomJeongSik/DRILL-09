@@ -1,6 +1,7 @@
 from pathlib import Path
 from math import hypot
 from pico2d import *
+import pico2d.pico2d as pico_runtime
 
 ASSET_DIR = Path(__file__).resolve().parent
 
@@ -25,14 +26,22 @@ background = None
 character = None
 
 
+def window_has_focus():
+    return bool(SDL_GetWindowFlags(pico_runtime.window) & SDL_WINDOW_INPUT_FOCUS)
+
+
 def handle_events():
     global running
-    for event in get_events():
+    events = get_events()
+    focused = window_has_focus()
+    if not focused:
+        pressed_keys.clear()
+    for event in events:
         if event.type == SDL_QUIT:
             running = False
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
-        elif event.type == SDL_KEYDOWN and event.key in (SDLK_LEFT, SDLK_RIGHT, SDLK_UP, SDLK_DOWN):
+        elif focused and event.type == SDL_KEYDOWN and event.key in (SDLK_LEFT, SDLK_RIGHT, SDLK_UP, SDLK_DOWN):
             pressed_keys.add(event.key)
         elif event.type == SDL_KEYUP:
             pressed_keys.discard(event.key)
