@@ -19,7 +19,7 @@ def handle_events():
             running = False
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
-        elif event.type == SDL_KEYDOWN and event.key in (SDLK_LEFT, SDLK_RIGHT):
+        elif event.type == SDL_KEYDOWN and event.key in (SDLK_LEFT, SDLK_RIGHT, SDLK_UP, SDLK_DOWN):
             if event.key not in pressed_keys:
                 pressed_keys.append(event.key)
         elif event.type == SDL_KEYUP and event.key in pressed_keys:
@@ -27,9 +27,11 @@ def handle_events():
 
 
 def update_movement():
-    global x
+    global x, y
     dx = int(SDLK_RIGHT in pressed_keys) - int(SDLK_LEFT in pressed_keys)
+    dy = int(SDLK_UP in pressed_keys) - int(SDLK_DOWN in pressed_keys)
     x += dx * 5
+    y += dy * 5
 
 
 def draw_scene():
