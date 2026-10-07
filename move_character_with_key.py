@@ -20,11 +20,14 @@ def draw_scene():
 
 
 def main():
-    global background, character
+    global background, character, frame
     open_canvas(TUK_WIDTH, TUK_HEIGHT)
     background = load_image('TUK_GROUND.png')
     character = load_image('animation_sheet.png')
-    draw_scene()
+    for _ in range(16):
+        draw_scene()
+        frame = (frame + 1) % FRAME_COUNT
+        delay(0.05)
     close_canvas()
 
 
