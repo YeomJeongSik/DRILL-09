@@ -46,7 +46,8 @@ def update_movement():
 def draw_scene():
     clear_canvas()
     background.draw(TUK_WIDTH / 2, TUK_HEIGHT / 2)
-    character.clip_draw(frame * FRAME_WIDTH, 300,
+    source_y = (100 if facing == RIGHT else 0) if state == MOVE else 300
+    character.clip_draw(frame * FRAME_WIDTH, source_y,
                         FRAME_WIDTH, FRAME_HEIGHT, x, y)
     update_canvas()
 
