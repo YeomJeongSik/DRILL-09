@@ -4,11 +4,13 @@ from pico2d import *
 TUK_WIDTH, TUK_HEIGHT = 1280, 1024
 FRAME_WIDTH = FRAME_HEIGHT = 100
 FRAME_COUNT = 8
+LEFT, RIGHT = -1, 1
 
 running = True
 x, y = TUK_WIDTH / 2, TUK_HEIGHT / 2
 frame = 0
 pressed_keys = set()
+facing = RIGHT
 background = None
 character = None
 
@@ -27,9 +29,11 @@ def handle_events():
 
 
 def update_movement():
-    global x, y
+    global x, y, facing
     dx = int(SDLK_RIGHT in pressed_keys) - int(SDLK_LEFT in pressed_keys)
     dy = int(SDLK_UP in pressed_keys) - int(SDLK_DOWN in pressed_keys)
+    if dx:
+        facing = RIGHT if dx > 0 else LEFT
     length = hypot(dx, dy)
     if length:
         x += dx / length * 5
