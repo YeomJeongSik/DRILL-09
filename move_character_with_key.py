@@ -33,17 +33,18 @@ def handle_events():
 def update_movement():
     global x, y, facing, state, frame
     previous_visual = (state, facing)
+    previous_position = (x, y)
     dx = int(SDLK_RIGHT in pressed_keys) - int(SDLK_LEFT in pressed_keys)
     dy = int(SDLK_UP in pressed_keys) - int(SDLK_DOWN in pressed_keys)
     if dx:
         facing = RIGHT if dx > 0 else LEFT
     length = hypot(dx, dy)
-    state = MOVE if length else IDLE
     if length:
         x += dx / length * 5
         y += dy / length * 5
     x = max(FRAME_WIDTH / 2, min(x, TUK_WIDTH - FRAME_WIDTH / 2))
     y = max(FRAME_HEIGHT / 2, min(y, TUK_HEIGHT - FRAME_HEIGHT / 2))
+    state = MOVE if (x, y) != previous_position else IDLE
     if (state, facing) != previous_visual:
         frame = 0
 
