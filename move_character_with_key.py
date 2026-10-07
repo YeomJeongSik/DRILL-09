@@ -14,13 +14,16 @@ character = None
 def draw_scene():
     clear_canvas()
     background.draw(TUK_WIDTH / 2, TUK_HEIGHT / 2)
+    character.clip_draw(frame * FRAME_WIDTH, 300,
+                        FRAME_WIDTH, FRAME_HEIGHT, x, y)
     update_canvas()
 
 
 def main():
-    global background
+    global background, character
     open_canvas(TUK_WIDTH, TUK_HEIGHT)
     background = load_image('TUK_GROUND.png')
+    character = load_image('animation_sheet.png')
     draw_scene()
     close_canvas()
 
