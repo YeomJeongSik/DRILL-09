@@ -42,6 +42,7 @@ def update_movement():
     if length:
         x += dx / length * 5
         y += dy / length * 5
+    x = max(FRAME_WIDTH / 2, min(x, TUK_WIDTH - FRAME_WIDTH / 2))
     if (state, facing) != previous_visual:
         frame = 0
 
