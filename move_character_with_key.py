@@ -11,8 +11,17 @@ background = None
 character = None
 
 
+def draw_scene():
+    clear_canvas()
+    background.draw(TUK_WIDTH / 2, TUK_HEIGHT / 2)
+    update_canvas()
+
+
 def main():
+    global background
     open_canvas(TUK_WIDTH, TUK_HEIGHT)
+    background = load_image('TUK_GROUND.png')
+    draw_scene()
     close_canvas()
 
 
